@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:injectable/injectable.dart';
 import 'package:tcb_recru_task/data/comments/data_source/comments_remote_data_source.dart';
 import 'package:tcb_recru_task/data/networking/api_result.dart';
@@ -23,6 +25,8 @@ class CommentsRepositoryImpl implements CommentsRepository {
         ),
         final _ => ApiResultFailure(apiError),
       };
+    } on SocketException {
+      return ApiResultFailure(AppErrorNetwork());
     } catch (e) {
       return ApiResultFailure(apiError);
     }

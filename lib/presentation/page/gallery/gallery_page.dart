@@ -72,13 +72,18 @@ class _ErrorContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final tr = context.l10n;
 
+    final errorMessage = switch (error) {
+      AppErrorNetwork() => tr.network_error,
+      final _ => tr.gallery_error,
+    };
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(tr.comments_error, textAlign: TextAlign.center),
+          Text(errorMessage, textAlign: TextAlign.center),
           const SizedBox(height: 16.0),
           FilledButton(
             onPressed: onRetry,

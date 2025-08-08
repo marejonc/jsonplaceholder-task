@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:tcb_recru_task/presentation/navigation/nav_bar.dart';
 import 'package:tcb_recru_task/presentation/navigation/router/app_route.dart';
-import 'package:tcb_recru_task/presentation/page/comments_page/comments_page.dart';
+import 'package:tcb_recru_task/presentation/page/comments/comments_page.dart';
 import 'package:tcb_recru_task/presentation/page/gallery/gallery_page.dart';
 
 class AppRouter {

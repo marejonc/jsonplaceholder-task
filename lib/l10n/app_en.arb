@@ -6,5 +6,6 @@
     "comments": "Comments",
     "comments_error": "Error occurred while loading comments",
     "comments_name": "Name: {name}",
-    "comments_email": "Email: {email}"
+    "comments_email": "Email: {email}",
+    "network_error": "Network error"
 }
