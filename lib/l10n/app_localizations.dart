@@ -135,6 +135,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Email: {email}'**
   String comments_email(Object email);
+
+  /// No description provided for @network_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Network error'**
+  String get network_error;
 }
 
 class _AppLocalizationsDelegate

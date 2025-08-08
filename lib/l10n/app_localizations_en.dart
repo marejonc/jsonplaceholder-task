@@ -32,4 +32,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String comments_email(Object email) {
     return 'Email: $email';
   }
+
+  @override
+  String get network_error => 'Network error';
 }

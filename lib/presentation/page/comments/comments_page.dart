@@ -4,8 +4,9 @@ import 'package:hooked_bloc/hooked_bloc.dart';
 import 'package:tcb_recru_task/domain/app_error.dart';
 import 'package:tcb_recru_task/domain/feature/comments/model/comment.dart';
 import 'package:tcb_recru_task/l10n/intl_util.dart';
-import 'package:tcb_recru_task/presentation/page/comments_page/cubit/comments_page_cubit.dart';
-import 'package:tcb_recru_task/presentation/page/comments_page/cubit/comments_page_state.dart';
+import 'package:tcb_recru_task/presentation/page/comments/cubit/comments_page_cubit.dart';
+import 'package:tcb_recru_task/presentation/page/comments/cubit/comments_page_state.dart';
+import 'package:tcb_recru_task/presentation/widget/comments/comment_tile.dart';
 
 class CommentsPage extends HookWidget {
   const CommentsPage({super.key});
@@ -51,35 +52,14 @@ class _IdleContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tr = context.l10n;
-
     return ListView.separated(
       padding: const EdgeInsets.all(16.0),
       itemCount: comments.length,
       separatorBuilder: (context, index) => const SizedBox(height: 4.0),
       itemBuilder: (context, index) {
         final comment = comments[index];
-        return Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  tr.comments_name(comment.name),
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
-                ),
-                const SizedBox(height: 2.0),
-                Text(
-                  tr.comments_email(comment.email),
-                  style: TextStyle(fontSize: 14.0),
-                ),
-                const SizedBox(height: 8.0),
-                Text(comment.body, style: TextStyle(fontSize: 12.0)),
-              ],
-            ),
-          ),
-        );
+
+        return CommentTile(comment);
       },
     );
   }
@@ -95,13 +75,18 @@ class _ErrorContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final tr = context.l10n;
 
+    final errorMessage = switch (error) {
+      AppErrorNetwork() => tr.network_error,
+      final _ => tr.comments_error,
+    };
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(tr.comments_error, textAlign: TextAlign.center),
+          Text(errorMessage, textAlign: TextAlign.center),
           const SizedBox(height: 16.0),
           FilledButton(
             onPressed: onRetry,
