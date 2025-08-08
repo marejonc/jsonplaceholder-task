@@ -22,17 +22,24 @@ class GalleryPage extends HookWidget {
       cubit.init();
 
       return null;
-    }, []);
+    }, [cubit]);
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(backgroundColor: Colors.white, title: Text(tr.gallery)),
+      appBar: AppBar(
+        backgroundColor: Colors.grey.shade50,
+        scrolledUnderElevation: 0,
+        title: Text(tr.gallery),
+      ),
       body: switch (state) {
         GalleryPageStateLoading() => const Center(
           child: CircularProgressIndicator(),
         ),
         GalleryPageStateIdle(:final photos) => _IdleContent(photos),
-        GalleryPageStateError(:final error) => _ErrorContent(error),
+        GalleryPageStateError(:final error) => _ErrorContent(
+          error: error,
+          onRetry: cubit.init,
+        ),
       },
     );
   }
@@ -56,12 +63,34 @@ class _IdleContent extends StatelessWidget {
 }
 
 class _ErrorContent extends StatelessWidget {
-  const _ErrorContent(this.error);
+  const _ErrorContent({required this.error, required this.onRetry});
 
   final AppError error;
+  final VoidCallback onRetry;
 
   @override
   Widget build(BuildContext context) {
-    return Placeholder();
+    final tr = context.l10n;
+
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(tr.comments_error, textAlign: TextAlign.center),
+          const SizedBox(height: 16.0),
+          FilledButton(
+            onPressed: onRetry,
+            style: FilledButton.styleFrom(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8.0)),
+              ),
+            ),
+            child: Text(tr.retry),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -94,17 +94,47 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en')];
 
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
   /// No description provided for @gallery.
   ///
   /// In en, this message translates to:
   /// **'Gallery'**
   String get gallery;
 
+  /// No description provided for @gallery_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error occurred while loading gallery'**
+  String get gallery_error;
+
   /// No description provided for @comments.
   ///
   /// In en, this message translates to:
   /// **'Comments'**
   String get comments;
+
+  /// No description provided for @comments_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error occurred while loading comments'**
+  String get comments_error;
+
+  /// No description provided for @comments_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name: {name}'**
+  String comments_name(Object name);
+
+  /// No description provided for @comments_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email: {email}'**
+  String comments_email(Object email);
 }
 
 class _AppLocalizationsDelegate

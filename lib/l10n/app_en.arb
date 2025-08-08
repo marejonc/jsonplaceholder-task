@@ -1,5 +1,10 @@
 {
     "@@locale": "en",
+    "retry": "Retry",
     "gallery": "Gallery",
-    "comments": "Comments"
+    "gallery_error": "Error occurred while loading gallery",
+    "comments": "Comments",
+    "comments_error": "Error occurred while loading comments",
+    "comments_name": "Name: {name}",
+    "comments_email": "Email: {email}"
 }
