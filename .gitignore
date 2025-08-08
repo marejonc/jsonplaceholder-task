@@ -48,3 +48,9 @@ app.*.map.json
 # FVM Version Cache
 .fvm/
 .fvmrc
+
+# Generated
+**.config.dart
+**.tailor.dart
+**.chopper.dart
+**.g.dart
