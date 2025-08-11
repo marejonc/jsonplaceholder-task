@@ -6,7 +6,11 @@ import 'package:tcb_recru_task/domain/feature/gallery/model/photo.dart';
 import 'package:tcb_recru_task/l10n/intl_util.dart';
 import 'package:tcb_recru_task/presentation/page/gallery/cubit/gallery_page_cubit.dart';
 import 'package:tcb_recru_task/presentation/page/gallery/cubit/gallery_page_state.dart';
+import 'package:tcb_recru_task/presentation/widget/common/app_error_view.dart';
+import 'package:tcb_recru_task/presentation/widget/common/app_page_wrapper.dart';
 import 'package:tcb_recru_task/presentation/widget/gallery/gallery_photo.dart';
+
+const _gridViewCrossAxisCount = 2;
 
 class GalleryPage extends HookWidget {
   const GalleryPage({super.key});
@@ -24,13 +28,8 @@ class GalleryPage extends HookWidget {
       return null;
     }, [cubit]);
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.grey.shade50,
-        scrolledUnderElevation: 0,
-        title: Text(tr.gallery),
-      ),
+    return AppPageWrapper(
+      title: tr.gallery,
       body: switch (state) {
         GalleryPageStateLoading() => const Center(
           child: CircularProgressIndicator(),
@@ -56,7 +55,7 @@ class _IdleContent extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       mainAxisSpacing: 8.0,
       crossAxisSpacing: 8.0,
-      crossAxisCount: 2,
+      crossAxisCount: _gridViewCrossAxisCount,
       children: [for (final photo in photos) GalleryPhoto(photo)],
     );
   }
@@ -77,25 +76,6 @@ class _ErrorContent extends StatelessWidget {
       final _ => tr.gallery_error,
     };
 
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(errorMessage, textAlign: TextAlign.center),
-          const SizedBox(height: 16.0),
-          FilledButton(
-            onPressed: onRetry,
-            style: FilledButton.styleFrom(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              ),
-            ),
-            child: Text(tr.retry),
-          ),
-        ],
-      ),
-    );
+    return AppErrorView(errorMessage: errorMessage, onRetry: onRetry);
   }
 }
