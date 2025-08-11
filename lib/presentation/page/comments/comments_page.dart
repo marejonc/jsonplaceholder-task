@@ -6,6 +6,8 @@ import 'package:tcb_recru_task/domain/feature/comments/model/comment.dart';
 import 'package:tcb_recru_task/l10n/intl_util.dart';
 import 'package:tcb_recru_task/presentation/page/comments/cubit/comments_page_cubit.dart';
 import 'package:tcb_recru_task/presentation/page/comments/cubit/comments_page_state.dart';
+import 'package:tcb_recru_task/presentation/widget/common/app_error_view.dart';
+import 'package:tcb_recru_task/presentation/widget/common/app_page_wrapper.dart';
 import 'package:tcb_recru_task/presentation/widget/comments/comment_tile.dart';
 
 class CommentsPage extends HookWidget {
@@ -24,13 +26,8 @@ class CommentsPage extends HookWidget {
       return null;
     }, [cubit]);
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.grey.shade50,
-        scrolledUnderElevation: 0,
-        title: Text(tr.comments),
-      ),
+    return AppPageWrapper(
+      title: tr.comments,
       body: switch (state) {
         CommentsPageStateLoading() => const Center(
           child: CircularProgressIndicator(),
@@ -80,25 +77,6 @@ class _ErrorContent extends StatelessWidget {
       final _ => tr.comments_error,
     };
 
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(errorMessage, textAlign: TextAlign.center),
-          const SizedBox(height: 16.0),
-          FilledButton(
-            onPressed: onRetry,
-            style: FilledButton.styleFrom(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-              ),
-            ),
-            child: Text(tr.retry),
-          ),
-        ],
-      ),
-    );
+    return AppErrorView(errorMessage: errorMessage, onRetry: onRetry);
   }
 }
