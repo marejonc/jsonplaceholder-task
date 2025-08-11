@@ -13,7 +13,7 @@ class GalleryPhoto extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () =>
-          showDialog(context: context, builder: (_) => PhotoPreview(photo.url)),
+          showDialog(context: context, builder: (_) => PhotoPreview(photo)),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
         child: CachedNetworkImage(
